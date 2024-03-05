@@ -1,0 +1,57 @@
+% dual entry command stolen from
+% https://en.wikibooks.org/wiki/LaTeX/Glossary#Dual_entries_with_reference_to_a_glossary_entry_from_an_acronym
+%
+% used like:
+% \newdualentry{label} % label
+% {LBL}                % abbreviation
+% {Label}              % long form
+% {What's a label???}  % description
+%
+% Refer to acronym with \gls{OWD} and the glossary with \gls{gls-OWD}
+
+
+\usepackage{xparse}
+
+\DeclareDocumentCommand{\newdualentry}{ O{} O{} m m m m } {
+	\newglossaryentry{gls-#3}{name={#5},text={#5\glsadd{#3}},
+		description={#6},#1
+	}
+	\makeglossaries
+	\newacronym[see={[Glossary:]{gls-#3}},#2]{#3}{#4}{#5\glsadd{gls-#3}}
+}
+
+
+
+
+% Acronym
+
+\newacronym{acronymexample}
+	{AE}
+	{\textbf{A}cronym \textbf{E}xample - additional description}
+
+
+% ------------------------------------------------
+
+% Acronyms/Glossary mixed
+
+\newdualentry{dualentryexample}
+	{DEE}
+	{\textbf{D}ual \textbf{E}ntry \textbf{E}xample}
+	{
+		\cite{Bibtex2021} : with acronym, citation and description
+	}
+
+
+% ------------------------------------------------
+
+% Glossary 
+
+\newglossaryentry{glossaryexample}
+	{
+		name=Glossary Example,
+		description={
+			\cite{Styles2021} : with Description
+		}
+	}
+
+% ------------------------------------------------

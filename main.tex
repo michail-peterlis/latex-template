@@ -1,0 +1,133 @@
+% !TeX program = lualatex
+
+\documentclass[a4paper]{article}
+
+% Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{relsize}
+\usepackage{geometry}
+\usepackage{titlepic}
+%\usepackage[utf8]{inputenc} % inputenc is not required if lualatex is used
+\usepackage{authblk}
+\usepackage{fancyhdr}
+\usepackage[urlcolor = accent_light,linktocpage]{hyperref}
+\usepackage{tocloft}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{comment}
+\usepackage[normalem]{ulem}
+\usepackage[none]{hyphenat}
+\usepackage{sectsty}
+\usepackage{listings}
+\usepackage{tabulary}
+\usepackage[backend=bibtex, style=ieee, citestyle=ieee]{biblatex}
+\usepackage{subfiles}
+\usepackage{todonotes}
+\usepackage{fontspec}
+\usepackage[nopostdot, acronym, toc]{glossaries}
+\usepackage[nottoc, notlot, notlof]{tocbibind}
+\usepackage{parskip}
+\usepackage{enumitem}
+
+
+% Overall settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{images/}}
+\pagestyle{fancy}
+\fancyhf{}
+
+
+\input{corperate_design/color_def.tex}
+\input{corperate_design/emphasis_commands.tex}
+
+
+\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+\setmainfont{Calibri}[
+	SizeFeatures={Size=12}
+]
+
+\setmonofont{Lucida Sans Typewriter}
+
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=accent_dark,
+	citecolor=accent_dark,
+}
+
+\sectionfont{\color{accent_light}}
+\subsectionfont{\color{accent_normal}}
+\subsubsectionfont{\color{accent_dark}}
+
+
+% Appendices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeglossaries
+\setacronymstyle{sc-short-long}  
+\loadglsentries{appendices/glossaries}
+
+\addbibresource{appendices/references.bib}
+
+
+%% Document settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% content settings
+\newcommand{\project}{Project Name}
+\newcommand{\outline}{Project Outline}
+
+
+\title{
+	\Huge{}\color{accent_normal}\textbf{\MakeUppercase{\project}}\\ 
+	\large{}\color{accent_dark}\textbf{\MakeLowercase{\outline}}}
+
+\author{Matt Damon}\affil{F.A.G Corp.}
+
+
+\rhead{\color{content_light}\includegraphics[width=4cm]{header-logo.png}}
+\lhead{\color{content_light}\project\ $\vert$ \textit{\leftmark}}
+
+\rfoot{\color{content_light}-\thepage-}
+
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+
+\makeatletter
+
+%% \todo{Draft watermark, should be removed for final}
+%\usepackage{draftwatermark}
+%%\SetWatermarkText{Draft}
+%\SetWatermarkColor[gray]{0.9}
+%\SetWatermarkAngle{60}
+%\SetWatermarkScale{20}
+%% 
+
+% Document structure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\sloppy
+	\pagenumbering{roman}
+	\color{content_normal}
+	
+	\begin{titlepage}
+		\maketitle
+		\thispagestyle{empty}
+		\includegraphics[width=\linewidth]{example-logo.png}
+		\vfill
+    \end{titlepage}
+
+	\subfile{sections/disclaimer}
+
+	\tableofcontents
+    \newpage
+    
+    \pagenumbering{arabic}
+	
+		
+	\subfile{sections/example}
+	
+	\newpage
+
+	\printglossary[type=\acronymtype]
+	\printglossary
+	
+	\newpage
+	\printbibliography[heading=bibintoc]
+\end{document}
